@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@pinia/nuxt": "^0.5.1",
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
@@ -18,9 +19,13 @@
     "mongoose": "^8.4.4",
     "nodemailer": "^6.9.14",
     "nuxt": "^3.12.2",
+    "pinia": "^2.1.7",
     "vue": "latest"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.4"
+  },
+  "overrides": {
+    "vue": "latest"
   }
 }

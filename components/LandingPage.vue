@@ -1,35 +1,50 @@
 <template>
-    <div class="w-screen h-screen flex flex-row justify-center items-center bg-white overflow-hidden">
-<div class="w-full md:w-3/5 h-[50vh] md:h-[70vh] flex flex-row justify-center items-center p-2 md:p-4 overflow-hidden">
-<div class="w-full" v-for="(slide, currIndex) in slides" :key="currIndex">
-<img
+    <div class="w-screen h-screen flex flex-col md:flex-row justify-center items-center bg-white overflow-hidden p-2">
+<div class="h-80  w-full md:w-4/5 flex flex-row justify-start items-center overflow-hidden" >  
+  <div class="w-full h-80 shrink-0  m-4 shadow-black flex flex-col items-center  justify-center overflow-hidden p-2" v-for="(slide, index) in slides" :key="index"   >
 
-class="w-full md:w-3/5 h-full"
-:src="slide[currIndex].image"
+    <img
+   
+    class="w-120 h-80  flex flex-row justify-center items-center drop-shadow-md shadow-black"
+    :src="slide.image"
+    
+    />
+  </div>
+ 
 
-/>
 </div>
+<div class="hidden h-[400px] md:w-1/5 md:flex md:flex-col items-center overflow-hidden hover:overflow-y-scroll  ">
+  <div class=" w-full flex flex-row justify-center items-center m-2  shadow-lg shadow-black" v-for="(slide, index) in slides"   :key="index">
+  <img
+
+  class="w-40 h-40  "
+  :src="slide.image"
+  @click="changeIndex(currIndex)"
+  />
+  </div>
 
 </div>
-<div class="w-full flex flex-col p-2 md:p-4" v-for="(slide, currIndex) in slides" :key="currIndex">
-<img
+<div class="w-full  md:hidden flex   p-2  overflow-hidden overflow-x-scroll mt-4">
+  <div class=" w-1/3 shrink-0 flex flex-row justify-center m-2 snap-x " v-for="(slide, index) in slides" :key="index">
+  <img
+  
+  class="w-full h-40 "
+  :src="slide.image"
+  @click="changeIndex(currIndex)"
+  />
+  </div>
 
-class="w-full md:w-3/5 h-full"
-:src="slide.image"
-@click="changeIndex(currIndex)"
-/>
 </div>
 
     </div>
 </template>
 
-<script >
+<script setup>
 import { ref, watch } from 'vue';
-export default {
-  data() {
-    return {
-      currIndex: 0,
-      slides: [
+const currIndex=ref(0)
+
+      
+     const slides= [
         {
           title: 'TERRA PC-BUSINESS ffgghh 5050S',
           image: 'bz_2018.png',
@@ -71,26 +86,23 @@ export default {
           price: 66
         }
       ]
+
+
+
+      const changeIndex = (index) => {
+  currIndex.value = index;
+};
+
+
+watch(currIndex, () => {
+  setTimeout(() => {
+    if (currIndex===7) {
+      currIndex.value = 0;
+    } else {
+      currIndex.value++;
     }
-  },
-methods:{
-  changeIndex(index){
-this.currIndex=index
-  }
-}
-}
-watch(
-  () => true, // Empty dependency for continuous execution
-  () => {
-    setTimeout(() => {
-  if(this.currIndex===7){
-    this.currIndex=0
-  }
-  this.currIndex++;
-    }, 2000);
-  },
-  { immediate: true } // Run initially
-);
+  }, 2000);
+}, { immediate: true }); // Run initially
 
 
 </script>
