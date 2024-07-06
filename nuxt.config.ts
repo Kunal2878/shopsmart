@@ -14,8 +14,6 @@ export default defineNuxtConfig({
   modules: [
     '@pinia/nuxt',
   ],
-  // pinia: {
-  //   // Optional Pinia configuration options
-  //   storesDirs: ['./stores/**'] // Specify stores directories
-  // },
+  
+
 })

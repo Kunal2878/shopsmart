@@ -19,8 +19,8 @@
             <input v-model="password" type="password" id="password" name="password" class="w-full rounded border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
           </div>
           <div class="form-group mt-8 w-full flex flex-row justify-center">
-            <button type="submit" class="btn bg-indigo-500 text-white font-semibold py-2 px-4 rounded hover:bg-indigo-700">Login</button>
-            <button type="submit" class="btn bg-indigo-500 text-white font-semibold py-2 px-4 rounded hover:bg-indigo-700">Signup</button>
+            <NuxtLink type="submit" class="btn bg-indigo-500 text-white font-semibold py-2 px-4 rounded hover:bg-indigo-700 mr-4 cursor-pointer">Login</NuxtLink>
+            <NuxtLink  class="btn bg-indigo-500 text-white font-semibold py-2 px-4 rounded hover:bg-indigo-700 cursor-pointer" to="/signup">Signup</NuxtLink>
           </div>
         </form>
         <div v-if="alertMessage" class="w-full mt-4 alert alert-warning">

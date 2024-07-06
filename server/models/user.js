@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-
+import { MongodbAdapter } from "@lucia-auth/adapter-mongodb";
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -17,9 +17,37 @@ const userSchema = new mongoose.Schema({
   }
 });
 
+
 const User = mongoose.model('User', userSchema);
+
 
 
 
 export default User;
 
+
+
+// const adapter = new MongodbAdapter(
+// 	mongoose.connection.collection("sessions"),
+// 	mongoose.connection.collection("users")
+// );
+// const Session = mongoose.model(
+// 	"Session",
+// 	new mongoose.Schema(
+// 		{
+// 			_id: {
+// 				type: String,
+// 				required: true
+// 			},
+// 			user_id: {
+// 				type: String,
+// 				required: true
+// 			},
+// 			expires_at: {
+// 				type: Date,
+// 				required: true
+// 			}
+// 		},
+// 		{ _id: false }
+// 	)
+// );

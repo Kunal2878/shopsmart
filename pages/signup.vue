@@ -61,7 +61,8 @@ export default {
         if (response.status === 200) {
           const data = await response;
           console.log('Signup response:', data);
-
+          
+          localStorage.setItem('userData', JSON.stringify(response.userData));
           // Handle successful registration (e.g., show success message, redirect)
           this.alertMessage = 'Signup successful. Redirecting to Login';
           this.$router.push('/login');
