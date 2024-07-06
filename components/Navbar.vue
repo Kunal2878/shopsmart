@@ -25,13 +25,8 @@
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router';
-if(localStorage.getItem(userData))
-{
 
-    var userData = localStorage.getItem(userData)
-}
-const route = useRoute();
+
 
 
 </script>

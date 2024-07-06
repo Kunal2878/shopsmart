@@ -2,10 +2,11 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import {Lucia} from 'lucia'
 import User from '~/server/models/user.js';
+import lucia from '~/server/models/adapter.js';
 import { MongodbAdapter } from "@lucia-auth/adapter-mongodb";
 
-// import adapter from '~/server/models/user.js';
-// import { generateIdFromEntropySize } from "lucia";
+
+import { generateIdFromEntropySize } from "lucia";
 import mongoose from 'mongoose';
 export default  defineEventHandler(async (event) => {
 
@@ -35,29 +36,21 @@ export default  defineEventHandler(async (event) => {
       password: hashedPassword
     });
     
-    
-    const db = mongoose.connection;
-    // console.log(db)
-    // const adapter = new MongodbAdapter(db);
-const adapter = new MongodbAdapter(
-	mongoose.connection.collection("sessions"),
-	mongoose.connection.collection("users")
-);
-  const lucia = new Lucia(   adapter );
-  console.log("lucia is",lucia)
-    // const userId = generateIdFromEntropySize(10);
-    // console.log(userId)
-    const session = await lucia.createSession("userId", {});
-    console.error("sessasion is",session)
+
+// const adapter = new MongodbAdapter(
+// 	mongoose.connection.collection("sessions"),
+// 	mongoose.connection.collection("users")
+// );
+//   const lucia = new Lucia(   adapter );
+//   console.log("lucia is",lucia)
+//     // const userId = generateIdFromEntropySize(10);
+//     // console.log(userId)
+const userId = generateIdFromEntropySize(10);
+    const session = await lucia.createSession(userId, {});
+    console.log("sessasion is",session)
     appendHeader(event, "Set-Cookie", lucia.createSessionCookie(session.id).serialize());
     await newUser.save();
-    // const token = jwt.sign({ userId: user._id }, process.env.secretKey, { expiresIn: '1h'});
-    // const userData = {
-    //   token: token,
-    //   userName: username,
-    //   email:Email,
-      
-    // };
+
 
     
     return ({status:200, message: 'Registration successful' });

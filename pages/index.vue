@@ -1,10 +1,10 @@
 <template>
    <NuxtLoadingIndicator />
-    <div  class="w-screen min-h-screen overflow-x-hidden overflow-hidden overflow-y-auto">
-      <Buy v-if='isAuthenticated'/>
-      <ClientOnly>
+    <div  class="w-full min-h-screen overflow-x-hidden overflow-hidden overflow-y-auto">
+      <Buy/>
+   
   <Navbar/>
-      </ClientOnly>
+   
    <LandingPage/>
 <products/>
     </div>

@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { MongodbAdapter } from "@lucia-auth/adapter-mongodb";
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
