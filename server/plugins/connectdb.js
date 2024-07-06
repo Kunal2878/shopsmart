@@ -4,7 +4,7 @@ export default defineEventHandler(async () => {
   const MONGODB_URI = process.env.PUBLIC_MONGO_ID; // Replace with your connection URI
 
   try {
-    await mongoose.connect(MONGODB_URI, {
+    await mongoose.connect("mongodb+srv://webprokunal:lAs7zbmXPIvUEHn9@shopclus.cc7grak.mongodb.net/", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
