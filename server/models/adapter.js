@@ -1,6 +1,6 @@
 
 import {Lucia} from 'lucia'
-
+import mongoose from 'mongoose';
 import { MongodbAdapter } from "@lucia-auth/adapter-mongodb";
 
 const adapter = new MongodbAdapter(

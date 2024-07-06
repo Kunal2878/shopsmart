@@ -46,6 +46,7 @@ export default  defineEventHandler(async (event) => {
 //     // const userId = generateIdFromEntropySize(10);
 //     // console.log(userId)
 const userId = generateIdFromEntropySize(10);
+console.log(userId)
     const session = await lucia.createSession(userId, {});
     console.log("sessasion is",session)
     appendHeader(event, "Set-Cookie", lucia.createSessionCookie(session.id).serialize());
