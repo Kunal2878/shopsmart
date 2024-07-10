@@ -1,5 +1,5 @@
 <template>
-    <div class="w-screen h-screen flex flex-col md:flex-row justify-center items-center bg-white overflow-hidden p-2">
+    <div class="w-screen h-screen flex flex-col md:flex-row justify-center items-center  overflow-hidden p-2">
 <div class="h-80  w-full md:w-4/5 flex flex-row justify-start items-center overflow-hidden" >  
   <div class="w-full h-80 shrink-0  m-4 shadow-black flex flex-col items-center  justify-center overflow-hidden p-2" v-for="(slide, index) in slides" :key="index"   >
 

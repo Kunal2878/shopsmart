@@ -2,5 +2,5 @@
 
 { 
   "extends": "./.nuxt/tsconfig.json",
-  "include": ["**/*.ts", "**/*.vue"]
+  "include": ["**/*.ts", "**/*.vue", "middleware/auth.js"]
 }

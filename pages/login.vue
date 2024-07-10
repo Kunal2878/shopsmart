@@ -9,7 +9,7 @@
 
        </div>
        
-        <form @submit.prevent="" class="w-full">
+        <form @submit.prevent="login" class="w-full">
           <div class="form-group mt-4">
             <label for="email" class="text-gray-700 font-medium">Email</label>
             <input v-model="Email" type="email" id="email" name="email" class="w-full rounded border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
@@ -23,12 +23,10 @@
             <NuxtLink  class="btn bg-indigo-500 text-white font-semibold py-2 px-4 rounded hover:bg-indigo-700 cursor-pointer" to="/signup">Signup</NuxtLink>
           </div>
         </form>
-        <div v-if="alertMessage" class="w-full mt-4 alert alert-warning">
-          <p class="text-gray-700">Email or password not exists!</p>
+        <div v-if="isAlert" class="w-full mt-4 alert alert-warning">
+          <p class="text-gray-700">{{ alertMessage }}</p>
         </div>
-        <div v-if="alertmessage" class="w-full mt-4 alert alert-success">
-          <p class="text-green-500">Login Successful! Redirecting...</p>
-        </div>
+    
       </div>
     </div>
   </template>
@@ -40,15 +38,60 @@ export default {
       username: '',
       Email: '',
       password: '',
-      alertMessage: false,
-      alertmessage: false,
+      alertMessage: '',
+      isAlert: false,
     };
   },
   methods: {
+
+ 
     closeForm() {
 
-      this.$router.push('/'); 
-    },
+this.$router.push('/'); 
+},
+    async login() {
+      try {
+        const res = await $fetch("/api/authlogin", {
+          method: 'POST',
+          body: JSON.stringify({
+        
+            Email: this.Email,
+           
+          }),
+          headers: { 'Content-Type': 'application/json' },
+        });
+        if (res.status === 200) {
+          isAlert = true;
+          this.alertMessage = 'Login successful... Redirecting to home page';
+          setTimeout(() => {
+            isAlert = false;
+            this.$router.push('/');
+          }, 2000);
+        } 
+        else if (res.status === 400) {
+          isAlert = true;
+          this.alertMessage = "Email doesn't exist";
+          setTimeout(() => {
+            isAlert = false;
+          }, 2000);
+        }
+        else{
+          isAlert = true;
+          this.alertMessage = "Failed to find user, try after some time";
+          setTimeout(() => {
+            isAlert = false;
+          }, 2000);
+        }
+      } catch (err) {
+        isAlert = true;
+          this.alertMessage = "Failed to find user, try after some time";
+          setTimeout(() => {
+            isAlert = false;
+          }, 2000);
+      }
+ 
+
+
   }
-}
+}}
 </script>
