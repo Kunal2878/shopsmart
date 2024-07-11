@@ -1,7 +1,7 @@
 <template>
-  <div class='w-full flex flex-col justify-center items-center text-gray-700 font-semibold'>
-      <div class="  w-full grid md:grid-cols-3 grid-cols-2 gap-2 md:gap-2  overflow-hidden" >  
-<div class="w-40 md:w-60 h-120 md:text-[12px] text-[8px]   text-gray-800  shadow-black flex flex-col items-center  justify-center overflow-hidden p-4 md:p-2" v-for="(slide, index) in slides" :key="index">
+  <div class='w-full flex flex-col justify-center items-center text-white font-semibold'>
+      <div class="   w-full grid md:grid-cols-3 grid-cols-2 gap-2 md:gap-2  overflow-hidden " >  
+<div class=" w-40 md:w-60 h-120 md:text-[12px] text-[8px]    shadow-black flex flex-col items-center  justify-center overflow-hidden p-4 md:p-2" v-for="(slide, index) in slides" :key="index">
 
   <img
  
@@ -12,58 +12,33 @@
   <span>⭐⭐⭐</span>     <span class="text-gray-400">{{slide.price}}</span>
  </div>
  <div class="w-full flex flex-row justify-between p-2">
-  <img
- 
-  class="size-6 flex flex-row justify-center items-center drop-shadow-md shadow-black"
-  src="../assets/buy.svg" />
-  <img
- 
-  class="size-6  flex flex-row justify-center items-center drop-shadow-md shadow-black"
-  src="../assets/cart.svg" />
- </div>
-<!-- <img
+  <div class='size-10 flex flex-row justify-center items-center rounded-full border-2 hover:bg-white/55 border-green-500 hover:border-cyan-500'>
+    <img
+   
+    class="cursor-pointer size-5 flex flex-row justify-center items-center drop-shadow-md shadow-black"
+    src="../assets/buy.svg" />
 
-
- <!-- <div className=' flex absolute top-1/2 justify-between w-full '>
-        <button
-          type="button"
-          class=" ml-4 p-2 bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded-full"
-        
-        >
-          <svg
-            class="h-6 w-6 text-indigo-700"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 18l-6-6l6-6" />
-          </svg>
-        </button>
-        <button
-          type="button"
-          class="p-2 mr-4 bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded-full"
+  </div>
+  <div class='size-10 flex flex-row justify-center items-center rounded-full border-2 hover:bg-white/55 border-green-500 hover:border-cyan-500'>
   
-        >
-          <svg
-            class="h-6 w-6 text-indigo-700"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 18l6-6l-6-6" />
-          </svg>
-        </button>
-      </div> -->
+    <img
+   @click="addToCart(slide)"
+    class=" cursor-pointer size-5  flex flex-row justify-center items-center drop-shadow-md shadow-black"
+    src="../assets/cart.svg" />
+
+  </div>
+ </div>
+
 
 </div>
 </div>
+<div class="w-full flex flex-row justify-start">
+<span class="w-30 flex flex-row justify-start m-4 text-[14px] md:text-[18px] p-4 border-0 border-b-2 border-b-green-500">Top deals</span>
 
-<span class="w-full flex flex-row justify-start m-4">Top deals</span>
+</div>
 
-<diiv class="  w-full grid md:grid-cols-3 grid-cols-2 gap-2 md:gap-2  overflow-hidden" >  
-<div class="w-40 md:w-60 h-120 md:text-[12px] text-[8px]    text-gray-800  shadow-black flex flex-col items-center  justify-center overflow-hidden p-4 md:p-2" v-for="(slide, index) in slides2" :key="index">
+<div class="  w-full grid md:grid-cols-3 grid-cols-2 gap-2 md:gap-2  overflow-hidden" >  
+<div class="w-40 md:w-60 h-120 md:text-[12px] text-[8px]      shadow-black flex flex-col items-center  justify-center overflow-hidden p-4 md:p-2" v-for="(slide, index) in slides2" :key="index">
 
   <img
  
@@ -74,57 +49,37 @@
   <span>⭐⭐⭐</span>     <span class="text-gray-400">{{slide.price}}</span>
  </div>
  <div class="w-full flex flex-row justify-between p-2">
-  <img
- 
-  class="size-6 flex flex-row justify-center items-center drop-shadow-md shadow-black"
-  src="../assets/buy.svg" />
-  <img
- 
-  class="size-6  flex flex-row justify-center items-center drop-shadow-md shadow-black"
-  src="../assets/cart.svg" />
- </div>
-<!-- <img
+  <div class='size-10 flex flex-row justify-center items-center rounded-full border-2 hover:bg-white/55 border-green-500 hover:border-cyan-500'>
+    <img
+   
+    class="cursor-pointer size-5 flex flex-row justify-center items-center drop-shadow-md shadow-black"
+    src="../assets/buy.svg" />
 
-
- <!-- <div className=' flex absolute top-1/2 justify-between w-full '>
-        <button
-          type="button"
-          class=" ml-4 p-2 bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded-full"
-        
-        >
-          <svg
-            class="h-6 w-6 text-indigo-700"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 18l-6-6l6-6" />
-          </svg>
-        </button>
-        <button
-          type="button"
-          class="p-2 mr-4 bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded-full"
+  </div>
+  <div class='size-10 flex flex-row justify-center items-center rounded-full border-2 hover:bg-white/55 border-green-500 hover:border-cyan-500'>
   
-        >
-          <svg
-            class="h-6 w-6 text-indigo-700"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 18l6-6l-6-6" />
-          </svg>
-        </button>
-      </div> -->
+    <img
+   @click="addToCart(slide)"
+    class=" cursor-pointer size-5  flex flex-row justify-center items-center drop-shadow-md shadow-black"
+    src="../assets/cart.svg" />
+
+  </div>
+ </div>
+
 
 </div>
-</diiv>
+</div>
   </div>
 </template>
 
 <script setup>
+import { useCartStore } from '@/stores/cartStore';
+const cartStore = useCartStore();
+const addToCart = (product) => {
+cartStore.addItem(product);
+console.log("cart is here",cartStore.items)
+
+};
 const slides =[
       
 

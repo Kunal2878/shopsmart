@@ -4,11 +4,18 @@
 
    <NuxtLoadingIndicator />
     <div  class=" bg-blue-950 w-full min-h-screen overflow-x-hidden overflow-hidden overflow-y-auto">
-      <!-- <Buy/> -->
-   
+
+<!-- <Buy/> -->
+
+   <div v-if="isAlert === true" class= "w-full md:w-1/2 shadow-md shadow-black/50 absolute bottom-0 mb-6 bg-white text-green-500 border-2 border-b-green-500 rounded-md text-[18px] md:text-[16px]"> 
+
+    Item added to the cart
+  
+  </div>
   <Navbar/>
-   
-   <LandingPage/>
+
+<!-- <LandingPage/> -->
+
 <products/>
     </div>
 
@@ -23,32 +30,34 @@ import Navbar from '~/components/Navbar.vue';
 import products from '../components/products.vue';
 import Buy from '../components/Buy.vue';
 
-// import lucia from '~/server/models/adapter'
+import { useBuyStore } from '@/stores/buyStore';
 
-// import { useCookie } from '@nuxt/app';
 
-// const cookie = useCookie('auth_session')
-// import {lucia} from 'lucia'
+export default{
 
-// console.log(cookie)
+components:[LandingPage,Navbar,Buy],
 
-  export default{
-    components:[LandingPage,Navbar,Buy],
 async setup() { 
+
+const buyStore = useBuyStore();
+const isAlert = buyStore.isAlert
+
+console.log("IsAlert",isAlert)
+
 
 var isAuthenticated = false
 
 
-      var cokkie = useCookie('shopsmart')
+var cokkie = useCookie('shopsmart')
  if(cokkie.value)
  {
-   console.log(cokkie)
-   console.log(cokkie.value)
+
   isAuthenticated = true
 
  }
     return {
       isAuthenticated,
+      isAlert
     };
   }
 

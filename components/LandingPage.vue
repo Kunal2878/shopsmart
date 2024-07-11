@@ -1,7 +1,7 @@
 <template>
     <div class="w-screen h-screen flex flex-col md:flex-row justify-center items-center  overflow-hidden p-2">
-<div class="h-80  w-full md:w-4/5 flex flex-row justify-start items-center overflow-hidden" >  
-  <div class="w-full h-80 shrink-0  m-4 shadow-black flex flex-col items-center  justify-center overflow-hidden p-2" v-for="(slide, index) in slides" :key="index"   >
+<div class="h-80 BG w-full md:w-4/5 rounded-md shadow-black shadow-lg flex flex-row justify-start items-center overflow-hidden" >  
+  <div class="w-full h-80 shrink-0  pb-4 m-4  flex flex-col items-center  justify-center overflow-hidden p-2" v-for="(slide, index) in slides" :key="index">
 
     <img
    
@@ -16,7 +16,6 @@
 <div class="hidden h-[400px] md:w-1/5 md:flex md:flex-col items-center overflow-hidden hover:overflow-y-scroll  ">
   <div class=" w-full flex flex-row justify-center items-center m-2  shadow-lg shadow-black" v-for="(slide, index) in slides"   :key="index">
   <img
-
   class="w-40 h-40  "
   :src="slide.image"
   @click="changeIndex(currIndex)"
@@ -40,11 +39,13 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
-const currIndex=ref(0)
+import { useState } from 'nuxt/app';
+import { ref, watch, watchEffect } from 'vue';
+const currIndex= useState(0)
 
       
      const slides= [
+
         {
           title: 'TERRA PC-BUSINESS ffgghh 5050S',
           image: 'bz_2018.png',
@@ -90,19 +91,30 @@ const currIndex=ref(0)
 
 
       const changeIndex = (index) => {
-  currIndex.value = index;
+  currIndex = index;
 };
 
 
 watch(currIndex, () => {
   setTimeout(() => {
-    if (currIndex===7) {
-      currIndex.value = 0;
+    if (currIndex ===7) {
+      currIndex = 0;
+  console.log(currIndex )
     } else {
-      currIndex.value++;
+ 
+    
+      currIndex++;
     }
   }, 2000);
-}, { immediate: true }); // Run initially
+}, { immediate: true }); 
 
 
 </script>
+<style>
+.BG{
+  background-image: url("../assets/nike_logo.png");
+  background-size:cover;
+  background-position:center;
+}
+
+</style>

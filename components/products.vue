@@ -1,20 +1,25 @@
 <template>
 
-            <div class="w-full flex flex-col justify-center p-2 mt-4 md:text-[12px] text:[8px]">
-                <div class="w-full flex flex-row justify-center items-center mb-4">
+                        <div class="w-full flex flex-col justify-center p-2 mt-4 md:text-[12px] text-[8px]">
+                            <div class="w-full flex flex-row justify-center items-center mb-4">
 
-                    <button class="w-40  h-30 flex flex-row justify-center items-center border-2 rounded-md p-1 hover:bg-cyan-400 border-cyan-500 text-purple-600  mr-2" @click="isShirts = true; isShoes = false; isEyewear = false; isWristWatch = false">Shirts</button>
-                    <button class="w-40  h-30 h-30 flex flex-row justify-center items-center border-2 rounded-md p-1 hover:bg-cyan-400 border-cyan-500 text-purple-600 mr-2" @click="isShirts = false; isShoes = false; isEyewear = true; isWristWatch = false">Eyewear</button>
-                    <button class="w-40  h-30 flex flex-row justify-center items-center border-2 rounded-md p-1 hover:bg-cyan-400 border-cyan-500 text-purple-600 mr-2" @click="isShirts = false; isShoes = true; isEyewear = false; isWristWatch = false">Footwear</button>
+                                <button :class="[' REF w-40 h-30 flex flex-row justify-center items-center border-2 rounded-md p-1 hover:bg-cyan-500 border-green-500 text-white mr-2',
+                                       isShirts ? 'bg-green-500  ' : 'bg-none']" @click="isShirts = true; isShoes = false; isEyewear = false; isWristWatch = false">Shirts</button>
+                                <button :class="[' REF w-40 h-30 flex flex-row justify-center items-center border-2 rounded-md p-1 hover:bg-cyan-500 border-green-500 text-white mr-2',
+                                       isEyewear ? 'bg-green-500  ' : 'bg-none']"@click="isShirts = false; isShoes = false; isEyewear = true; isWristWatch = false">Eyewear</button>
+                                <button :class="[' REF w-40 h-30 flex flex-row justify-center items-center border-2 rounded-md p-1 hover:bg-cyan-500 border-green-500 text-white mr-2',
+                                       isShoes ? 'bg-green-500  ' : 'bg-none']" @click="isShirts = false; isShoes = true; isEyewear = false; isWristWatch = false">Footwear</button>
 
-                    <button class="w-40  h-30 flex flex-row justify-center items-center border-2 rounded-md p-1 hover:bg-cyan-400 border-cyan-500 text-purple-600 mr-2" @click="isShirts = false; isShoes = false; isEyewear = false; isWristWatch = true">Wristwatch</button>
-                </div>
+                                <button :class="[' REF w-40 h-30 flex flex-row justify-center items-center border-2 rounded-md p-1 hover:bg-cyan-500 border-green-500 text-white mr-2',
+                                       isWristWatch ? 'bg-green-500  ' : 'bg-none']" @click="isShirts = false; isShoes = false; isEyewear = false; isWristWatch = true">Wristwatch</button>
+                            </div>
 
-                <Shirt v-if="isShirts" />
-                <Shoes v-if="isShoes" />
-                <Eyewear v-if="isEyewear" />
-                <Wristwatch v-if="isWristWatch" />
-            </div>    
+
+                            <Shirt v-if="isShirts" />
+                            <Shoes v-if="isShoes" />
+                            <Eyewear v-if="isEyewear" />
+                            <Wristwatch v-if="isWristWatch" />            
+                        </div>    
 
 </template>
 
@@ -36,7 +41,15 @@ export default{
     }
 }
 </script>
+<style>
 
+:hover.REF{
+
+-webkit-box-reflect: below 1px linear-gradient(transparent,rgba(0, 0, 0, 0.493));
+box-shadow: 0 0 5px #03f41f, 0 0 6px #03f437c8, 0 0 10prgba(3, 244, 55, 0.701)37, 0 0 10px #03f437b6;
+}
+
+</style>
 
 <!-- @click="isShirts= true;
             isShoes=false;

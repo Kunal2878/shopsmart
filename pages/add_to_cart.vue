@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full bg-white flex flex-col items-center mt-10">
+    <div class="w-full top-0 min-h-screen bg-blue-950 text-white flex flex-col items-center  ">
    
       <div v-if="cart.length">
 <div v-if="buy_pro">
@@ -41,53 +41,61 @@
 
 
 
-        <div v-else>
+        <div v-else class="w-full p-4">
 
           <h1 class="text-2xl font-semibold mb-4">Your Cart</h1>
           <ul class="list-none space-y-4">
-            <li v-for="item in cart" :key="item.title">
-              <div class="flex justify-between items-center bg-gray-100 p-2 rounded-md">
-                <div class="flex items-center">
-                  <img
-                    :src="item.image"
-                    alt="Product Image"
-                    class="w-16 h-16 object-cover rounded-md mr-4"
-                  />
-                  <div class="text-left">
-                    <p class="font-medium">{{ item.title }}</p>
-                    <span class="text-gray-500 text-sm">Price: ${{ item.price }}</span>
-                  </div>
-                </div>
-                <div class="flex items-center">
+            <li v-for="item in cart" :key="item.title" class=" w-200 flex flex-col items-center rounded-md bg-gray-600">
+     <div class="w-full flex flex-col">
+
+       <div class="  w-full flex flex-row items-start justify-start p-4">
+         <img
+           :src="item.image"
+           alt="Product Image"
+           class="left-0 ml-4 w-16 h-16 object-cover rounded-md mr-4"
+         />
+         <div class="text-left">
+           <p class="font-medium">{{ item.title }}</p>
+           <span class="text-gray-300 text-sm">Price: ${{ item.price }}</span>
+         </div>
+       </div>
+
+       <div class=" w-full flex flex-row justify-center items-center mx-4">
+         <button
+           @click="editQuantity(item, -1)"
+           class="px-2 py-1 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
+         >
+           -
+         </button>
+         <span class="px-2">{{ item.quantity }}</span>
+         <button
+           @click="editQuantity(item, 1)"
+           class="px-2 py-1 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
+         >
+           +
+         </button>
+       </div>
+     </div>
+           
+
+
+                <div class="w-full flex flex-row justify-between items-center p-4">
                   <button
                     @click="removeFromCart(item)"
-                    class="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-200"
+                    class="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-200 mr-4"
                   >
                     Remove
                   </button>
                   <button
                     @click="buy_pro=true; orderDetails.value.push(item)"
-                    class="px-2 py-1 bg-green-500 text-white rounded hover:bg-blue-700"
+                    class="px-2 py-1 mr-4 bg-green-500 text-white rounded hover:bg-blue-700"
                   >
                     Buy
                   </button>
-                  <div class="flex items-center mx-4">
-                    <button
-                      @click="editQuantity(item, -1)"
-                      class="px-2 py-1 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
-                    >
-                      -
-                    </button>
-                    <span class="px-2">{{ item.quantity }}</span>
-                    <button
-                      @click="editQuantity(item, 1)"
-                      class="px-2 py-1 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
-                    >
-                      +
-                    </button>
-                  </div>
                 </div>
-              </div>
+
+          
+
             </li>
           </ul>
           <div class="w-full flex flex-row justify-center items-center mt-4">
@@ -99,7 +107,7 @@
           </div>
         </div>
         </div>
-      <p v-else class="top-1/2 w-full flex flex-row justify-center items-center text-2xl text-gray-400">Your cart is empty</p>
+      <p v-else class="absolute  top-1/2 w-full flex flex-row justify-center items-center text-2xl text-gray-400">Your cart is empty</p>
     </div>
   </template>
   
