@@ -7,7 +7,7 @@
 
 <!-- <Buy/> -->
 
-   <div v-if="isAlert === true" class= "w-full md:w-1/2 shadow-md shadow-black/50 absolute bottom-0 mb-6 bg-white text-green-500 border-2 border-b-green-500 rounded-md text-[18px] md:text-[16px]"> 
+   <div v-if="buyStore.isAlert" class= "fixed z-40 w-full  flex flex-row justify-center items-center md:w-1/4 shadow-md shadow-black/50  top-0 left-1/4 mb-6 bg-white text-green-500 border-2 border-b-green-500 rounded-md text-[18px] md:text-[16px]"> 
 
     Item added to the cart
   
@@ -23,43 +23,31 @@
   </NuxtLayout>
   </template>
 
-  <script >
+  <script setup>
 
+components:[LandingPage,Navbar,Buy];
 import LandingPage from '~/components/LandingPage.vue';
 import Navbar from '~/components/Navbar.vue';
 import products from '../components/products.vue';
 import Buy from '../components/Buy.vue';
 
 import { useBuyStore } from '@/stores/buyStore';
+import { watch } from 'vue';
 
 
-export default{
 
-components:[LandingPage,Navbar,Buy],
 
-async setup() { 
+
 
 const buyStore = useBuyStore();
-const isAlert = buyStore.isAlert
-
-console.log("IsAlert",isAlert)
 
 
-var isAuthenticated = false
 
-
-var cokkie = useCookie('shopsmart')
- if(cokkie.value)
- {
-
-  isAuthenticated = true
-
- }
-    return {
-      isAuthenticated,
-      isAlert
-    };
+watch(() => buyStore.isAlert, () => {
+  if (buyStore.isAlert) {
+    setTimeout(() => {
+      buyStore.isAlert = false;
+    }, 2000);
   }
-
-}
+}, { immediate: true });
   </script>

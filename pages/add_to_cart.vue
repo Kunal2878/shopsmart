@@ -6,30 +6,35 @@
   <div class="order-confirmation">
     <h1 class="text-2xl font-semibold mb-4">Order Confirmation</h1>
     <div v-if="orderDetails">
-      <ul class="list-none space-y-4">
+      <ul class="list-none flex-col space-y-4">
         <li v-for="item in orderDetails" :key="item.title">
           <div class="flex items-center">
             <img :src="item.image" alt="" class="w-20 h-20 mr-4 rounded-full object-cover">
             <div class="flex flex-col">
               <p class="text-lg font-medium">{{ item.title }}</p>
-              <p class="text-gray-500">{{ item.quantity }} x {{ item.price }}</p>
-              <p class="text-gray-700 font-semibold">
+              <p class="text-gray-400">{{ item.quantity }} x {{ item.price }}</p>
+              <p class="text-gray-600 font-semibold">
                 {{ (item.quantity * item.price).toFixed(2) }}
               </p>
             </div>
           </div>
         </li>
         <li class="flex justify-end mt-4">
-          <p class="text-lg font-semibold">Total:</p>
-          <p class="text-xl font-bold text-green-500 ml-4">
-            {{ calculateTotal(orderDetails.items) }}
-          </p>
+          <p class="text-lg font-semibold">Total: <span class="text-gray-400">{{ total }} </span></p>
+     
         </li>
+<div class='w-full md:w-1/2 flex flex-col'> 
+  
+
+<input type="text" placeholder="Add your shipping address" class=" bg-blue-950 outline-none w-full p-4 border-2 border-b-green-500 rounded-md" v-model="address" @input="onAddressChange">
+<div class="w-full flex flex-row justify-center items-center">
+
+  <button class="mt-4 rounded-md w-24 h-12 flex flex-row justify-center items-center p-2 bg-cyan-500" @click="placeOrder()" >Confirm</button>
+</div>
+</div>
       </ul>
     </div>
-    <p v-else class="text-green-500 font-semibold">
-      Your order has been placed successfully!
-    </p>
+  
   </div>
 
 
@@ -87,8 +92,7 @@
                     Remove
                   </button>
                   <button
-                    @click="buy_pro=true; orderDetails.value.push(item)"
-                    class="px-2 py-1 mr-4 bg-green-500 text-white rounded hover:bg-blue-700"
+                    @click="buyItem(item);" class="px-2 py-1 mr-4 bg-green-500 text-white rounded hover:bg-blue-700"
                   >
                     Buy
                   </button>
@@ -100,7 +104,7 @@
           </ul>
           <div class="w-full flex flex-row justify-center items-center mt-4">
             <button 
-            @click="buy_pro.value=true; orderDetails.value=[...cart]"
+             @click="buyAll()"
             class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
               Buy all
             </button>
@@ -108,14 +112,20 @@
         </div>
         </div>
       <p v-else class="absolute  top-1/2 w-full flex flex-row justify-center items-center text-2xl text-gray-400">Your cart is empty</p>
+      <p v-if="place_order" class="absolute  top-1/2 w-full flex flex-row justify-center items-center text-2xl text-gray-400">
+      Your order has been placed successfully!
+    </p>
+  
     </div>
   </template>
   
   <script setup>
-  import { ref } from 'vue';
+  import { ref, watch } from 'vue';
 import { useCartStore } from '@/stores/cartStore'
   const buy_pro=ref(false)
+  const place_order=ref(false)
   const orderDetails=ref([])
+  const total=ref(0)
   const cartStore = useCartStore();
   const cart = cartStore.items;
   const removeFromCart = (itemId) => {
@@ -128,8 +138,32 @@ import { useCartStore } from '@/stores/cartStore'
     cartStore.editItemQuantity(item, quantity);
 
   };
-  </script>
-  
+const buyItem = (item)=>{
+  buy_pro.value=true
+  orderDetails.value.push(item)
+}
+const placeOrder = () => {
+  place_order.value = true;
+  setTimeout(() => {
+    navigateTo('/');
+  }, 2000);
+}
+const buyAll =()=>{
+  buy_pro.value=true; 
+  orderDetails.value=[...cart]
+  console.log(  orderDetails.value)
+}
+
+  watch(() => orderDetails.value, () => {
+    if (orderDetails.value.length > 0) {
+      for (const item of orderDetails.value) {
+       total.value= total.value+item.price*item.quantity
+
+      }
+      console.log("Total",total.value);
+    }
+  }, { immediate: true });
+</script>  
   <style scoped>
   /* Add any custom styles for your cart page */
   </style>

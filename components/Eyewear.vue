@@ -22,14 +22,14 @@
   <div class='size-10 flex flex-row justify-center items-center rounded-full border-2 hover:bg-white/55 border-green-500 hover:border-cyan-500'>
   
     <img
-   @click="addToCart(slide)"
+   @click="showAlert();addToCart(slide)"
     class=" cursor-pointer size-5  flex flex-row justify-center items-center drop-shadow-md shadow-black"
     src="../assets/cart.svg" />
 
   </div>
  </div>
 
-
+   
 </div>
 </div>
 <div class="w-full flex flex-row justify-start">
@@ -59,7 +59,7 @@
   <div class='size-10 flex flex-row justify-center items-center rounded-full border-2 hover:bg-white/55 border-green-500 hover:border-cyan-500'>
   
     <img
-   @click="addToCart(slide)"
+   @click="showAlert(); addToCart(slide)"
     class=" cursor-pointer size-5  flex flex-row justify-center items-center drop-shadow-md shadow-black"
     src="../assets/cart.svg" />
 
@@ -74,12 +74,20 @@
 
 <script setup>
 import { useCartStore } from '@/stores/cartStore';
+import { useBuyStore } from '@/stores/buyStore';
+const buyStore = useBuyStore();
+const  showAlert =  () => 
+{
+
+  buyStore.isAlert=true
+
+}
 const cartStore = useCartStore();
 const addToCart = (product) => {
 cartStore.addItem(product);
-console.log("cart is here",cartStore.items)
+}
 
-};
+
 const slides =[
       
 

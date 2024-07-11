@@ -75,9 +75,17 @@
 <script setup>
 import { useCartStore } from '@/stores/cartStore';
 import { useBuyStore } from '@/stores/buyStore';
-const buyStore = useBuyStore();
 
 const cartStore = useCartStore();
+const buyStore = useBuyStore();
+const  showAlert =  () => 
+{
+
+  buyStore.isAlert=true
+
+
+
+}
 const addToCart = (product) => 
 {
 
@@ -85,20 +93,6 @@ cartStore.addItem(product);
 
 }
 
-const  showAlert =  () => 
-{
-  console.log( buyStore.isAlert)
-  buyStore.isAlert=true
-  console.log( buyStore.isAlert)
-
-  setTimeout(()=>(
-    buyStore.isAlert=false
-    // console.log(buyStore.isAlert)
-    
-  ),3000);
-  console.log( buyStore.isAlert)
-  
-}
 
 
 const slides =[
