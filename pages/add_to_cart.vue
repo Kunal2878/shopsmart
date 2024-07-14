@@ -1,9 +1,10 @@
 <template>
     <div class="w-full top-0 min-h-screen bg-blue-950 text-white flex flex-col items-center  ">
    
-      <div v-if="cart.length">
+
+      <div v-if="cart.length" class="w-full md:w-1/2 h-full">
 <div v-if="buy_pro">
-  <div class="order-confirmation">
+  <div class="order-confirmation p-4">
     <h1 class="text-2xl font-semibold mb-4">Order Confirmation</h1>
     <div v-if="orderDetails">
       <ul class="list-none flex-col space-y-4">
@@ -20,16 +21,16 @@
           </div>
         </li>
         <li class="flex justify-end mt-4">
-          <p class="text-lg font-semibold">Total: <span class="text-gray-400">{{ total }} </span></p>
+          <p class="text-lg font-semibold">Total: <span class="text-gray-400">${{ total.toFixed(2) }} </span></p>
      
         </li>
 <div class='w-full md:w-1/2 flex flex-col'> 
   
 
-<input type="text" placeholder="Add your shipping address" class=" bg-blue-950 outline-none w-full p-4 border-2 border-b-green-500 rounded-md" v-model="address" @input="onAddressChange">
+<input type="text" placeholder="Add your shipping address to confirm" class=" bg-blue-950 outline-none w-full p-4 border-2 border-b-green-500 rounded-md" v-model="address" @input="(e) => address = e.target.value">
 <div class="w-full flex flex-row justify-center items-center">
 
-  <button class="mt-4 rounded-md w-24 h-12 flex flex-row justify-center items-center p-2 bg-cyan-500" @click="placeOrder()" >Confirm</button>
+  <button :disabled="!address" class="mt-4 disabled:bg-cyan-800 disabled:cursor-not-allowed rounded-md w-24 h-12 flex flex-row justify-center items-center p-2 bg-cyan-500" @click="placeOrder()" >Confirm</button>
 </div>
 </div>
       </ul>
@@ -40,13 +41,20 @@
 
 </div>
 
+<div v-else-if='isConfirm' class="absolute top-1/4 w-full md:w-1/2 flex flex-col justify-center items-center align-center text-white font-semibold ">
+<div class="size-40 flex flex-row justify-center items-center rounded-full border-2 bg-yellow-400 p-2">
+  <img src="../assets/confirm.svg" class="size-32 flex flex-row justify-center items-center " />
+
+</div>
+<h2 class="w-full flex flex-row justify-center items-center text-[20px]">Order Placed successfully</h2>
+<h2 class="w-full flex flex-row justify-center items-center text-[14px] text-gray-400">Shipping address: {{ address }}</h2>
+
+</div>
 
 
 
 
-
-
-        <div v-else class="w-full p-4">
+        <div v-else class="w-full flex- flex-col  p-4">
 
           <h1 class="text-2xl font-semibold mb-4">Your Cart</h1>
           <ul class="list-none space-y-4">
@@ -92,7 +100,7 @@
                     Remove
                   </button>
                   <button
-                    @click="buyItem(item);" class="px-2 py-1 mr-4 bg-green-500 text-white rounded hover:bg-blue-700"
+                    @click="buyItem(item)" class="px-2 py-1 mr-4 bg-green-500 text-white rounded hover:bg-blue-700"
                   >
                     Buy
                   </button>
@@ -109,12 +117,43 @@
               Buy all
             </button>
           </div>
+
+          <ul v-if="recent_ordered.length" class="list-none space-y-4">
+            <h1 class="text-2xl font-semibold mb-4">Recently ordered items</h1>
+            <li v-for="item in recent_ordered" :key="item.title" class=" w-200 flex flex-col items-center rounded-md bg-gray-600">
+    
+
+       <div class="  w-full flex flex-row items-start justify-between p-4">
+         <img
+           :src="item.image"
+           alt="Product Image"
+           class="left-0 ml-4 w-16 h-16 object-cover rounded-md mr-4"
+         />
+      
+           <p class="font-medium text-[12px] text-gray-600">{{ item.title }}</p>
+           <span class="text-gray-300 text-sm">Qty: {{ item.quanty }}</span>
+           <span class="text-gray-300 text-sm">Price: ${{ item.price }}</span>
+  
+       </div>
+
+   
+ 
+           
+
+
+               
+
+          
+
+            </li>
+          </ul>
         </div>
+
+
+
         </div>
       <p v-else class="absolute  top-1/2 w-full flex flex-row justify-center items-center text-2xl text-gray-400">Your cart is empty</p>
-      <p v-if="place_order" class="absolute  top-1/2 w-full flex flex-row justify-center items-center text-2xl text-gray-400">
-      Your order has been placed successfully!
-    </p>
+     
   
     </div>
   </template>
@@ -123,11 +162,14 @@
   import { ref, watch } from 'vue';
 import { useCartStore } from '@/stores/cartStore'
   const buy_pro=ref(false)
+  const address =ref('')
   const place_order=ref(false)
+  const isConfirm=ref(false)
   const orderDetails=ref([])
   const total=ref(0)
   const cartStore = useCartStore();
   const cart = cartStore.items;
+  const recent_ordered = cartStore.recent_items;
   const removeFromCart = (itemId) => {
     cartStore.removeItem(itemId);
   };
@@ -141,8 +183,20 @@ import { useCartStore } from '@/stores/cartStore'
 const buyItem = (item)=>{
   buy_pro.value=true
   orderDetails.value.push(item)
+  if (orderDetails.value.length > 0) {
+ 
+      for (const item of orderDetails.value) {
+       total.value= total.value+item.price*item.quantity
+
+      }
+
+    }
+
 }
 const placeOrder = () => {
+  cartStore.recent_items.value = [...orderDetails.value]
+  buy_pro.value=false;
+  isConfirm.value=true;
   place_order.value = true;
   setTimeout(() => {
     navigateTo('/');
@@ -156,11 +210,12 @@ const buyAll =()=>{
 
   watch(() => orderDetails.value, () => {
     if (orderDetails.value.length > 0) {
+      
       for (const item of orderDetails.value) {
        total.value= total.value+item.price*item.quantity
 
       }
-      console.log("Total",total.value);
+     
     }
   }, { immediate: true });
 </script>  
