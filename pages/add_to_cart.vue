@@ -47,7 +47,7 @@
 
 </div>
 <h2 class="w-full flex flex-row justify-center items-center text-[20px]">Order Placed successfully</h2>
-<h2 class="w-full flex flex-row justify-center items-center text-[14px] text-gray-400">Shipping address: {{ address }}</h2>
+<h2 class="w-full flex flex-row justify-center items-center text-[14px] text-gray-400">Shipping address: {{ address }} </h2>
 
 </div>
 
@@ -136,14 +136,6 @@
   
        </div>
 
-   
- 
-           
-
-
-               
-
-          
 
             </li>
           </ul>
@@ -170,6 +162,7 @@ import { useCartStore } from '@/stores/cartStore'
   const cartStore = useCartStore();
   const cart = cartStore.items;
   const recent_ordered = cartStore.recent_items;
+
   const removeFromCart = (itemId) => {
     cartStore.removeItem(itemId);
   };
